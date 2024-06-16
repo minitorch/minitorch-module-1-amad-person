@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Any, Iterable, List, Tuple
+from typing import Any, Iterable, Tuple
 
 from typing_extensions import Protocol
 
@@ -22,8 +22,17 @@ def central_difference(f: Any, *vals: Any, arg: int = 0, epsilon: float = 1e-6) 
     Returns:
         An approximation of $f'_i(x_0, \ldots, x_{n-1})$
     """
-    # TODO: Implement for Task 1.1.
-    raise NotImplementedError("Need to implement for Task 1.1")
+    h = epsilon / 2
+
+    forward_vals = list(vals)
+    forward_vals[arg] += h
+    forward_difference = f(*forward_vals)
+
+    backward_vals = list(vals)
+    backward_vals[arg] -= h
+    backward_difference = f(*backward_vals)
+
+    return (forward_difference - backward_difference) / epsilon
 
 
 variable_count = 1
